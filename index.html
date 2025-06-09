@@ -2,37 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>funny</title>
+  <title>Open Multiple Tabs and Windows</title>
 </head>
 <body>
   <script>
     window.onload = function () {
       const url = 'https://fein.com/typo3conf/ext/mq_layout/Resources/Public/Images/main/layout/logo.svg';
 
-      // Open 5 tabs in original window
-      for (let i = 0; i < 100; i++) {
+      // Open 5 tabs in the original window
+      for (let i = 0; i < 5; i++) {
         window.open(url, '_blank');
       }
 
-      // Open 5 new windows and 5 tabs in each
-      for (let winIndex = 1; winIndex <= 100; winIndex++) {
+      // Open 5 new windows and 5 tabs in each window targeting the same window name
+      for (let winIndex = 1; winIndex <= 5; winIndex++) {
         const winName = `newWindow${winIndex}`;
-        const width = 1920, height = 1080;
-        const newWin = window.open('', winName, `width=${width},height=${height},left=100,top=${winIndex * 50}`);
+        const width = 800, height = 600;
+        const left = 100 + winIndex * 30; // offset each window a bit
+        const top = 100 + winIndex * 30;
+
+        const newWin = window.open('', winName, `width=${width},height=${height},left=${left},top=${top}`);
 
         if (newWin) {
           newWin.document.write(`
-            <html><head><title>Window ${winIndex}</title></head>
-            <body><h1>Window ${winIndex}</h1></body></html>
+            <html>
+              <head><title>Window ${winIndex}</title></head>
+              <body><h1>Window ${winIndex}</h1></body>
+            </html>
           `);
           newWin.document.close();
 
           // Open 5 tabs targeting this new window name
-          for (let tabIndex = 1; tabIndex <= 100; tabIndex++) {
+          for (let tabIndex = 1; tabIndex <= 5; tabIndex++) {
             window.open(url, winName);
           }
         } else {
-          console.warn(\`Popup blocked for window \${winIndex}\`);
+          console.warn(`Popup blocked for window ${winIndex}`);
         }
       }
     };
