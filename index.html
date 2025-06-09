@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Repeat Open Tabs</title>
+</head>
+<body>
+  <button onclick="openManyTabs()">Open 5 Tabs</button>
+
+  <script>
+    function openManyTabs() {
+      for (let i = 0; i < 1000000; i++) {
+        window.open("https://google.com", "_blank");
+      }
+    }
+  </script>
+</body>
+</html>
