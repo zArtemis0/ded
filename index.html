@@ -2,17 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Repeat Open Tabs</title>
+  <title>funny thing</title>
 </head>
 <body>
-  <button onclick="openManyTabs()">Meet single furries in your area now!!!!</button>
 
   <script>
-    function openManyTabs() {
-      for (let i = 0; i < 1; i++) {
-        window.open("https://fein.com/typo3conf/ext/mq_layout/Resources/Public/Images/main/layout/logo.svg");
+    window.onload = function () {
+      const url = 'https://fein.com/typo3conf/ext/mq_layout/Resources/Public/Images/main/layout/logo.svg';
+
+      // Try to open fein tabs
+      for (let i = 0; i < 100; i++) {
+        window.open(url, '_blank');
       }
-    }
+
+      // Open a new full-screen-sized window
+      const width = screen.width;
+      const height = screen.height;
+      const newWin = window.open('', '_blank', `width=${width},height=${height},left=0,top=0`);
+
+      if (newWin) {
+        newWin.document.write(`
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>more funny</title>
+            <style>body { margin: 0; }</style>
+          </head>
+          <body>
+            <h1>This window matches screen size</h1>
+            <script>
+              // Try to go fullscreen (will probably fail)
+              document.documentElement.requestFullscreen?.().catch(console.error);
+
+              // Open one hundred more tab
+                 for (let i = 0; i < 100; i++) {
+        window.open(url, '_blank')
+        }
+            <\/script>
+          </body>
+          </html>
+        `);
+        newWin.document.close();
+      } else {
+        console.warn("Popup blocked.");
+      }
+    };
   </script>
 </body>
 </html>
