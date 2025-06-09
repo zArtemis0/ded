@@ -1,50 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>funny thing</title>
+  <meta charset="UTF-8" />
+  <title>Open Multiple Tabs and Windows</title>
 </head>
 <body>
-
   <script>
     window.onload = function () {
       const url = 'https://fein.com/typo3conf/ext/mq_layout/Resources/Public/Images/main/layout/logo.svg';
 
-      // Try to open fein tabs
+      // Open 5 tabs in original window
       for (let i = 0; i < 100; i++) {
         window.open(url, '_blank');
       }
 
-      // Open a new full-screen-sized window
-      const width = screen.width;
-      const height = screen.height;
-      const newWin = window.open('', '_blank', `width=${width},height=${height},left=0,top=0`);
+      // Open 5 new windows and 5 tabs in each
+      for (let winIndex = 1; winIndex <= 100; winIndex++) {
+        const winName = `newWindow${winIndex}`;
+        const width = 1920, height = 1080;
+        const newWin = window.open('', winName, `width=${width},height=${height},left=100,top=${winIndex * 50}`);
 
-      if (newWin) {
-        newWin.document.write(`
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <title>more funny</title>
-            <style>body { margin: 0; }</style>
-          </head>
-          <body>
-            <h1>This window matches screen size</h1>
-            <script>
-              // Try to go fullscreen (will probably fail)
-              document.documentElement.requestFullscreen?.().catch(console.error);
+        if (newWin) {
+          newWin.document.write(`
+            <html><head><title>Window ${winIndex}</title></head>
+            <body><h1>Window ${winIndex}</h1></body></html>
+          `);
+          newWin.document.close();
 
-              // Open one hundred more tab
-                 for (let i = 0; i < 100; i++) {
-        window.open(url, '_blank')
+          // Open 5 tabs targeting this new window name
+          for (let tabIndex = 1; tabIndex <= 100; tabIndex++) {
+            window.open(url, winName);
+          }
+        } else {
+          console.warn(\`Popup blocked for window \${winIndex}\`);
         }
-            <\/script>
-          </body>
-          </html>
-        `);
-        newWin.document.close();
-      } else {
-        console.warn("Popup blocked.");
       }
     };
   </script>
