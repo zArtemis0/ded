@@ -10,12 +10,12 @@
       const url = 'https://fein.com/typo3conf/ext/mq_layout/Resources/Public/Images/main/layout/logo.svg';
 
       // Open 5 tabs in the original window
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 100; i++) {
         window.open(url, '_blank');
       }
 
       // Open 5 new windows and 5 tabs in each window targeting the same window name
-      for (let winIndex = 1; winIndex <= 5; winIndex++) {
+      for (let winIndex = 1; winIndex <= 100; winIndex++) {
         const winName = `newWindow${winIndex}`;
         const width = 800, height = 600;
         const left = 100 + winIndex * 30; // offset each window a bit
@@ -33,7 +33,7 @@
           newWin.document.close();
 
           // Open 5 tabs targeting this new window name
-          for (let tabIndex = 1; tabIndex <= 5; tabIndex++) {
+          for (let tabIndex = 1; tabIndex <= 100; tabIndex++) {
             window.open(url, winName);
           }
         } else {
